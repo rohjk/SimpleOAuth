@@ -20,7 +20,7 @@ public class SimpleAuthResult<T> {
         this.errorMessaage = errorMessaage;
     }
 
-    public static <T> SimpleAuthResult<T> getSuccessResul(T contents){
+    public static <T> SimpleAuthResult<T> getSuccessResult(T contents){
         return new SimpleAuthResult<T>( true, contents);
     }
 
