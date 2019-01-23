@@ -12,12 +12,14 @@ public abstract class AuthClient {
     protected String userId;
     protected String accessToken;
 
-    protected Activity activity;
+   // protected Activity activity;
 
     public static AuthClient getAuthClientInstance(IdpType idpType){
         switch (idpType){
             case GOOGLE :
                 return new GoogleAuth();
+            case FACEBOOK :
+                return new FacebookAuth();
         }
 
         return null;
