@@ -28,7 +28,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    //implementation "com.facebook.android:facebook-android-sdk:4.+"
+    implementation "com.facebook.android:facebook-android-sdk:4.+"
 
 }
 apply plugin: 'com.github.dcendents.android-maven'

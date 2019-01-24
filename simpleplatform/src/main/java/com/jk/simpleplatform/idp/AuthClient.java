@@ -9,11 +9,6 @@ import com.jk.simpleplatform.SimpleAuthResultCallback;
 
 public abstract class AuthClient {
 
-    protected String userId;
-    protected String accessToken;
-
-   // protected Activity activity;
-
     public static AuthClient getAuthClientInstance(IdpType idpType){
         switch (idpType){
             case GOOGLE :

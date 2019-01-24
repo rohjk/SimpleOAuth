@@ -58,6 +58,15 @@ public class SimpleSession {
         }
     }
 
+    public static boolean isSignedIn(@NonNull Activity activity){
+        if(activity == null){
+            return false;
+        }else if(currentClient!=null){
+            return currentClient.isSignedIn(activity);
+        }
+        return false;
+    }
+
     public static IdpType getCurrentIdpType()
     {
         if(currentClient!=null)
@@ -68,6 +77,12 @@ public class SimpleSession {
     public static String getAccessToken(){
         if(currentClient!=null)
             return currentClient.getToken();
+        return null;
+    }
+
+    public static String getEmail(){
+        if(currentClient!=null)
+            return currentClient.getEmail();
         return null;
     }
 

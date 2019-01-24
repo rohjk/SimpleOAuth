@@ -87,12 +87,12 @@ public class GoogleAuth extends AuthClient {
 
     @Override
     public String getEmail() {
-        return null;
+        return googleSignInAccount!=null? googleSignInAccount.getEmail() : "";
     }
 
     @Override
     public boolean isSignedIn(@NonNull Activity activity) {
-        return GoogleSignIn.getLastSignedInAccount(activity) != null;
+        return googleSignInAccount!=null? (GoogleSignIn.getLastSignedInAccount(activity) != null) : false;
     }
 
     @Override

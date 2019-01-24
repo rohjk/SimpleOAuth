@@ -10,9 +10,23 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:id="@+id/loginBtn"
-        android:onClick="onLoginClick"/>
+        android:text="Google Login"
+        android:id="@+id/googleLoginBtn"
+        android:onClick="onGoogleLoginClick"/>
+
+    <Button
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="Facebook Login"
+    android:id="@+id/facebookLoginBtn"
+    android:onClick="onFacebookLoginClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Is Loged in"
+        android:id="@+id/logedin"
+        android:onClick="onlogedInClick"/>
 
     <TextView
         android:id="@+id/tokenView"
