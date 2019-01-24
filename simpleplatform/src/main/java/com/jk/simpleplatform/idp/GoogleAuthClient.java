@@ -19,6 +19,8 @@ import com.jk.simpleplatform.SimpleAuthprovider;
 
 public class GoogleAuthClient extends AuthClient {
     private static String TAG = "[GoogleAuthClient]";
+
+    private static int GOOGLE_AUTH_SDK_BASE_ERROR = -140;
     public static int GOOGLE_LOGIN_REQUEST = 12121;
 
     GoogleSignInClient googleSignInClient;
@@ -80,6 +82,12 @@ public class GoogleAuthClient extends AuthClient {
         if(googleSignInClient != null) {
             googleSignInClient.signOut();
         }
+        clear();
+    }
+
+    private void clear(){
+        googleSignInClient = null;
+        googleSignInAccount = null;
     }
 
     @Override
@@ -99,7 +107,7 @@ public class GoogleAuthClient extends AuthClient {
 
     @Override
     public boolean isSignedIn(@NonNull Activity activity) {
-        return googleSignInAccount!=null? (GoogleSignIn.getLastSignedInAccount(activity) != null) : false;
+        return (googleSignInAccount!=null)? (GoogleSignIn.getLastSignedInAccount(activity) != null) : false;
     }
 
     @Override
@@ -113,7 +121,7 @@ public class GoogleAuthClient extends AuthClient {
 
     private void handleGoogleSignInAccount(Task<GoogleSignInAccount> task, SimpleAuthResultCallback<Void> callback) {
         if(callback==null){
-
+            //ERROR!
         }else{
             try{
                 googleSignInAccount = task.getResult(ApiException.class);

@@ -2,6 +2,7 @@ package com.jk.simpleplatform.idp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -10,11 +11,15 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.jk.simpleplatform.SimpleAuthResult;
 import com.jk.simpleplatform.SimpleAuthResultCallback;
 import com.jk.simpleplatform.SimpleAuthprovider;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +27,10 @@ import java.util.List;
 
 public class FacebookAuthClient extends AuthClient {
     private static String TAG = "[FacebookAuthClient]";
+
+    private static int FACEBOOK_SDK_BASE_ERROR = -130;
+    private static int FACEBOOK_SDK_GRAPH_ERROR = FACEBOOK_SDK_BASE_ERROR - 1;
+
     private static final String PERMISSIONS_PUBLIC_PROFILE = "public_profile";
     private static final String PERMISSIONS_EMAIL = "email";
 
@@ -36,6 +45,7 @@ public class FacebookAuthClient extends AuthClient {
 
     private SimpleAuthResultCallback<Void> loginCallback;
     private AccessToken _accessToken;
+    private String _userEmail;
 
     @Override
     @SuppressWarnings("deprecation")
@@ -55,7 +65,7 @@ public class FacebookAuthClient extends AuthClient {
                         activity.runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                callback.onResult(SimpleAuthResult.<Void>getSuccessResult(null));
+                                requestUserInfo(callback);
                             }
                         });
 
@@ -69,7 +79,8 @@ public class FacebookAuthClient extends AuthClient {
                             @Override
                             public void onSuccess(LoginResult loginResult) {
                                 _accessToken = loginResult.getAccessToken();
-                                callback.onResult(SimpleAuthResult.<Void>getSuccessResult(null));
+
+                                requestUserInfo(callback);
                             }
 
                             @Override
@@ -78,8 +89,9 @@ public class FacebookAuthClient extends AuthClient {
                             }
 
                             @Override
-                            public void onError(FacebookException error) {
-                                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_BASE_ERROR, error.getMessage()));
+                            public void onError(FacebookException facebookError) {
+                                facebookError.printStackTrace();
+                                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_LOGIN_ERROR,"FACEBOOK_LOGIN_FAIL"));
                             }
                         });
 
@@ -98,8 +110,6 @@ public class FacebookAuthClient extends AuthClient {
             callback.onResult( SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_PROVIDER_ERROR,"SERVER_ID_NULL"));
 
         }else {
-            SimpleAuthResult<Void> initResult = null;
-
             FacebookSdk.setApplicationId(SimpleAuthprovider.getInstance().getServerId(IdpType.FACEBOOK));
             try {
                 FacebookSdk.sdkInitialize(mActivity, new FacebookSdk.InitializeCallback() {
@@ -115,9 +125,41 @@ public class FacebookAuthClient extends AuthClient {
         }
     }
 
+    private void requestUserInfo(final SimpleAuthResultCallback<Void> callback){
+        GraphRequest graphRequest = GraphRequest.newMeRequest(_accessToken, new GraphRequest.GraphJSONObjectCallback() {
+            @Override
+            public void onCompleted(JSONObject object, GraphResponse response) {
+                if(response.getError()==null){
+                    //Success
+                    try {
+                        _userEmail = object.getString("email");
+                        callback.onResult(SimpleAuthResult.<Void>getSuccessResult(null));
+                    }catch (Exception e){
+                        e.printStackTrace();
+                        callback.onResult(SimpleAuthResult.<Void>getFailResult(FACEBOOK_SDK_BASE_ERROR,"GRAPH_REQUEST_PARSE_ERROR"));
+                    }
+                }else{
+                    //Fail
+                    callback.onResult(SimpleAuthResult.<Void>getFailResult(FACEBOOK_SDK_GRAPH_ERROR,"REQUEST_GRAPH_ERROR"));
+                }
+            }
+        });
+
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", PERMISSIONS_EMAIL);
+        graphRequest.setParameters(parameters);
+        graphRequest.executeAsync();
+    }
+
     @Override
     public void logout() {
         LoginManager.getInstance().logOut();
+        clear();
+    }
+
+    private void clear(){
+        _accessToken = null;
+        _userEmail = null;
     }
 
     @Override
@@ -126,9 +168,8 @@ public class FacebookAuthClient extends AuthClient {
     }
 
     @Override
-    //[TODO] User Id를 반환함, Email 정보 가져오기 위해서는 Graph API 사용해야하는데, 다른 방법이 있는지 찾아봐야함.
     public String getEmail() {
-        return (_accessToken != null)? _accessToken.getUserId() : "";
+        return (_userEmail != null)? _userEmail : "";
     }
 
     @Override
