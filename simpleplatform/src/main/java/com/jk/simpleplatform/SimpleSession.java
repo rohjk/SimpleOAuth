@@ -12,6 +12,10 @@ public class SimpleSession {
     private static String TAG = "[SimpleSession]";
     private Activity activity;
 
+    private static int SDK_BASE_ERROR = -500;
+    private static int SDK_ACTIVITY_NULL_ERROR = -501;
+    private static int SDK_IDP_NULL_ERROR = -502;
+
     private static AuthClient currentClient;
 
     public SimpleSession(){
@@ -25,10 +29,10 @@ public class SimpleSession {
 
     public static void login(@NonNull Activity activity, @NonNull IdpType idpType, @NonNull final SimpleAuthResultCallback<Void> callback){
         if(activity == null){
-            callback.onResult(SimpleAuthResult.<Void>getFailResult(-100,"Activity is Null"));
+            callback.onResult(SimpleAuthResult.<Void>getFailResult(SDK_ACTIVITY_NULL_ERROR,"ACTIVITY_NULL"));
 
         }else if(idpType == null){
-            callback.onResult(SimpleAuthResult.<Void>getFailResult(-101,"Idp Type is Null"));
+            callback.onResult(SimpleAuthResult.<Void>getFailResult(SDK_IDP_NULL_ERROR,"IDP_TYPE_NULL"));
 
         }else if (callback == null){
             Log.d(TAG,"Login Callback is null");
@@ -53,7 +57,6 @@ public class SimpleSession {
         }
     }
 
-    //[TODO] 로그아웃 구현 해야함!
     public static void logout(){
         if(currentClient!=null){
             currentClient.logout();
