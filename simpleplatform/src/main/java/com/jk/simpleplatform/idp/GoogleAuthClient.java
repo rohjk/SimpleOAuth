@@ -16,8 +16,8 @@ import com.jk.simpleplatform.SimpleAuthResult;
 import com.jk.simpleplatform.SimpleAuthResultCallback;
 import com.jk.simpleplatform.SimpleAuthprovider;
 
-public class GoogleAuth extends AuthClient {
-    private static String TAG = "[GoogleAuth]";
+public class GoogleAuthClient extends AuthClient {
+    private static String TAG = "[GoogleAuthClient]";
     public static int GOOGLE_LOGIN_REQUEST = 12121;
 
     GoogleSignInClient googleSignInClient;

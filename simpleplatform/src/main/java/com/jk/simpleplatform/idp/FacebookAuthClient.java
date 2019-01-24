@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class FacebookAuth extends AuthClient {
-    private static String TAG = "[FacebookAuth]";
+public class FacebookAuthClient extends AuthClient {
+    private static String TAG = "[FacebookAuthClient]";
     private static final String PERMISSIONS_PUBLIC_PROFILE = "public_profile";
     private static final String PERMISSIONS_EMAIL = "email";
 
