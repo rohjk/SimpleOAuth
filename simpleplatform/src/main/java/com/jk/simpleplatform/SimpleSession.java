@@ -34,6 +34,7 @@ public class SimpleSession {
             Log.d(TAG,"Login Callback is null");
 
         }else{
+
             final AuthClient authClient = AuthClient.getAuthClientInstance(idpType);
 
             SimpleSession.currentClient = authClient;
@@ -52,6 +53,13 @@ public class SimpleSession {
         }
     }
 
+    //[TODO] 로그아웃 구현 해야함!
+    public static void logout(){
+        if(currentClient!=null){
+            currentClient.logout();
+        }
+    }
+
     public static void onActivityResult(int requestCode, int resultCode, Intent data){
         if(currentClient!=null){
             currentClient.onActivityResult(requestCode,resultCode,data);
@@ -67,8 +75,7 @@ public class SimpleSession {
         return false;
     }
 
-    public static IdpType getCurrentIdpType()
-    {
+    public static IdpType getCurrentIdpType() {
         if(currentClient!=null)
             return currentClient.getIdpType();
         return null;

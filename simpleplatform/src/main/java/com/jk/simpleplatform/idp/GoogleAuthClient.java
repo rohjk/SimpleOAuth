@@ -3,6 +3,7 @@ package com.jk.simpleplatform.idp;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -56,7 +57,7 @@ public class GoogleAuthClient extends AuthClient {
 
     private void googleInit(final Activity mActivity, SimpleAuthResultCallback<Void> callback){
         if(SimpleAuthprovider.getInstance().getServerId(IdpType.GOOGLE)==null){
-            callback.onResult( SimpleAuthResult.<Void>getFailResult(-100,"SERVER_ID_NULL"));
+            callback.onResult( SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_PROVIDER_ERROR,"SERVER_ID_NULL"));
         }else{
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestEmail()
@@ -67,13 +68,19 @@ public class GoogleAuthClient extends AuthClient {
             googleSignInClient = GoogleSignIn.getClient(mActivity, gso);
 
             if(googleSignInClient == null){
-                callback.onResult(SimpleAuthResult.<Void>getFailResult(-100,"FAIL_TO_INIT_GOOGLE_CLIENT"));
+                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_INIT_ERROR,"FAIL_TO_INIT_GOOGLE_CLIENT"));
             }else{
                 callback.onResult(SimpleAuthResult.<Void>getSuccessResult(null));
             }
         }
     }
 
+    @Override
+    public void logout() {
+        if(googleSignInClient != null) {
+            googleSignInClient.signOut();
+        }
+    }
 
     @Override
     public IdpType getIdpType() {
@@ -113,11 +120,11 @@ public class GoogleAuthClient extends AuthClient {
                 callback.onResult(SimpleAuthResult.<Void>getSuccessResult(null));
             } catch (ApiException e){
                 googleSignInAccount = null;
-                int errorResponse = e.getStatusCode();
-                String errorMsg = "Google Auth Error (" + e.getStatusCode() +")";
+                int errorResponse = AUTH_CLIENT_BASE_ERROR -  e.getStatusCode();
+                String errorMsg = "GOOGLE_AUTH_ERROR_" + e.getStatusCode();
                 if(e.getStatusCode() == GoogleSignInStatusCodes.SIGN_IN_CANCELLED) {
-                    errorResponse = 1;
-                    errorMsg = "User canceled log in.";
+                    errorResponse = AUTH_CLIENT_USER_CANCELLED_ERROR;
+                    errorMsg = AUTH_CLIENT_USER_CANCELLED_ERROR_MESSAGE;
                 }
 
                 callback.onResult(SimpleAuthResult.<Void>getFailResult(errorResponse, errorMsg));

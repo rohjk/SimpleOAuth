@@ -74,12 +74,12 @@ public class FacebookAuthClient extends AuthClient {
 
                             @Override
                             public void onCancel() {
-                                callback.onResult(SimpleAuthResult.<Void>getFailResult(-101, "User canceled log in."));
+                                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_USER_CANCELLED_ERROR, AUTH_CLIENT_USER_CANCELLED_ERROR_MESSAGE));
                             }
 
                             @Override
                             public void onError(FacebookException error) {
-                                callback.onResult(SimpleAuthResult.<Void>getFailResult(-100, error.getMessage()));
+                                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_BASE_ERROR, error.getMessage()));
                             }
                         });
 
@@ -94,7 +94,7 @@ public class FacebookAuthClient extends AuthClient {
 
     private void facebookInit(final Activity mActivity, final SimpleAuthResultCallback<Void> callback){
         if(SimpleAuthprovider.getInstance().getServerId(IdpType.FACEBOOK)==null){
-            callback.onResult( SimpleAuthResult.<Void>getFailResult(-100,"SERVER_ID_NULL"));
+            callback.onResult( SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_PROVIDER_ERROR,"SERVER_ID_NULL"));
 
         }else {
             SimpleAuthResult<Void> initResult = null;
@@ -109,9 +109,14 @@ public class FacebookAuthClient extends AuthClient {
                 });
             } catch (Exception ex) {
                 Log.i(TAG, "Failed to auto initialize the Facebook SDK", ex);
-                callback.onResult(SimpleAuthResult.<Void>getFailResult(-100,"FAIL_TO_INIT_FACEBOOK_CLIENT"));
+                callback.onResult(SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_INIT_ERROR,"FAIL_TO_INIT_FACEBOOK_CLIENT"));
             }
         }
+    }
+
+    @Override
+    public void logout() {
+        LoginManager.getInstance().logOut();
     }
 
     @Override
