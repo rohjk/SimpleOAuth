@@ -60,6 +60,8 @@ public class SimpleSession {
     public static void logout(){
         if(currentClient!=null){
             currentClient.logout();
+
+            currentClient = null;
         }
     }
 
@@ -87,13 +89,13 @@ public class SimpleSession {
     public static String getAccessToken(){
         if(currentClient!=null)
             return currentClient.getToken();
-        return null;
+        return "";
     }
 
     public static String getEmail(){
         if(currentClient!=null)
             return currentClient.getEmail();
-        return null;
+        return "";
     }
 
 }

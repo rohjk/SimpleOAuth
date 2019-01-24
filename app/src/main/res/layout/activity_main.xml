@@ -24,13 +24,49 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:text="Logout"
+        android:id="@+id/logout"
+        android:onClick="onLogoutClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="Is Loged in"
         android:id="@+id/logedin"
         android:onClick="onlogedInClick"/>
 
-    <TextView
-        android:id="@+id/tokenView"
+    <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:text="Get Curret IDP Type"
+        android:id="@+id/idpType"
+        android:onClick="onGetIdpType"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Access Token"
+        android:id="@+id/accessToken"
+        android:onClick="onGetAccessTokenClick"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Email"
+        android:id="@+id/emal"
+        android:onClick="onGetEmailClick"/>
+
+    <ScrollView
+        android:background="#000000"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:textColor="#ffffff"
+            android:id="@+id/tokenView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </ScrollView>
 
 </LinearLayout>

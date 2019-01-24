@@ -32,10 +32,10 @@ public class FacebookAuthClient extends AuthClient {
         PERMISSIONS.add(PERMISSIONS_EMAIL);
     }
 
-    CallbackManager _callbackManager;
+    private CallbackManager _callbackManager;
 
-    SimpleAuthResultCallback<Void> loginCallback;
-    AccessToken _accessToken;
+    private SimpleAuthResultCallback<Void> loginCallback;
+    private AccessToken _accessToken;
 
     @Override
     @SuppressWarnings("deprecation")
@@ -92,6 +92,7 @@ public class FacebookAuthClient extends AuthClient {
         });
     }
 
+    @SuppressWarnings("deprecation")
     private void facebookInit(final Activity mActivity, final SimpleAuthResultCallback<Void> callback){
         if(SimpleAuthprovider.getInstance().getServerId(IdpType.FACEBOOK)==null){
             callback.onResult( SimpleAuthResult.<Void>getFailResult(AUTH_CLIENT_PROVIDER_ERROR,"SERVER_ID_NULL"));
@@ -125,6 +126,7 @@ public class FacebookAuthClient extends AuthClient {
     }
 
     @Override
+    //[TODO] User Id를 반환함, Email 정보 가져오기 위해서는 Graph API 사용해야하는데, 다른 방법이 있는지 찾아봐야함.
     public String getEmail() {
         return (_accessToken != null)? _accessToken.getUserId() : "";
     }
