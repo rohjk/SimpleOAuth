@@ -10,6 +10,22 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs{
+        debug{
+            storeFile file("JkRoh.keystore")
+            storePassword "shwjdrms93"
+            keyAlias "jkroh93"
+            keyPassword "shwjdrms93"
+        }
+        release{
+            storeFile file("JkRoh.keystore")
+            storePassword "shwjdrms93"
+            keyAlias "jkroh93"
+            keyPassword "shwjdrms93"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
