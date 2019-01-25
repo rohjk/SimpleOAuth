@@ -41,7 +41,7 @@ dependencies {
 
 #### a. Set IDP Provider
 
-set Google OAuth 2.0 'Web Client ID' or Facebook 'App ID'
+set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 
 ``` java
  SimpleSession.setAuthProvider(IdpType.GOOGLE,"<OAuth 2.0 Web Client ID>");
