@@ -1,4 +1,4 @@
-#Simple Platform
+# Simple Platform
 
 An Android Library used to Sign in Google, Facebook
 
