@@ -67,7 +67,9 @@ set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 #### C. Call Login API
 
 ``` java
- SimpleSession.login(this, IdpType.FACEBOOK, new SimpleAuthResultCallback<Void>() {
+ IdpType idpType; // IdpType.GOOGLE or IdpType.FACEBOOK
+ 
+ SimpleSession.login(this, idpType, new SimpleAuthResultCallback<Void>() {
           @Override
           public void onResult(SimpleAuthResult<Void> result) {
                if(result.isSuccess()){
