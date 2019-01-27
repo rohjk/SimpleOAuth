@@ -1,8 +1,12 @@
 # Simple Platform
 
-An Android Library used to Sign in Google, Facebook
+An Android Library used to Sign in Google, Facebook.
 
-Super Simple, Super easy to use!
+A library designed to use Oauth 2.0 easy to implement.
+
+Simple OAuth Login! 
+
+Super simple, super easy to use!
 
 ### Specs
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
