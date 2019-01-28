@@ -1,1 +1,1 @@
-include ':app', ':simpleplatform'
+include ':app', ':simpleOAuth'
