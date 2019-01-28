@@ -1,5 +1,4 @@
-# Simple Platform
-
+# Simple OAuth
 An Android Library used to Sign in Google, Facebook.
 
 A library designed to use Oauth 2.0 easy to implement.
@@ -10,8 +9,9 @@ Super simple, super easy to use!
 
 ### Specs
 [![API](https://img.shields.io/badge/API-16%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=16)
-[![](https://jitpack.io/v/rohjk/SimplePlatform.svg)](https://jitpack.io/#rohjk/SimplePlatform)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SimplePlatform-green.svg?style=flat)](https://android-arsenal.com/details/1/7488)
+[![](https://jitpack.io/v/rohjk/SimpleOAuth.svg)](https://jitpack.io/#rohjk/SimpleOAuth)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Simple%20OAuth-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7488)
+
 
 ## Quick Setup
 
@@ -35,7 +35,7 @@ Step 2. Add the dependency
 
 ``` gradle
 dependencies {
-    implementation 'com.github.rohjk:SimplePlatform:1.1'
+    implementation 'com.github.rohjk:SimpleOAuth:1.2'
 }
 ```
 
