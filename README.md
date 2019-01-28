@@ -41,6 +41,10 @@ dependencies {
 
 ### 2. Usage
 
+* In AndroidManifest.xml :
+
+Nothing
+
 
 * In Activity :
 
@@ -87,7 +91,7 @@ set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 
 
 
-### 3. Other API
+### 3. Others
 
 #### A. Get Sign in Status
 
