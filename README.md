@@ -126,5 +126,4 @@ set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 
 ### 3. dependencies
 
-play-services-auth:16.0.1
-facebook-android-sdk:4.+
+play-services-auth:16.0.1 , facebook-android-sdk:4.+
