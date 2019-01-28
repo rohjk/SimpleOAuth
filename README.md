@@ -126,10 +126,5 @@ set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 
 ### 3. dependencies
 
-``` gradle
-dependencies {
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation "com.facebook.android:facebook-android-sdk:4.+"
-
-}
-```
+com.google.android.gms:play-services-auth:16.0.1
+com.facebook.android:facebook-android-sdk:4.+
