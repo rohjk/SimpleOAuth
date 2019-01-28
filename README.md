@@ -1,7 +1,7 @@
 # Simple OAuth
 An Android Library used to Sign in Google, Facebook.
 
-A library designed to use Oauth 2.0 easy to implement.
+A library designed to use Oauth 2.0 easily
 
 Simple OAuth Login! 
 
@@ -121,4 +121,15 @@ set Google OAuth 2.0 'Web Client ID', Facebook 'App ID'
 
 ``` java
  SimpleSession.logout();
+```
+
+
+### 3. dependencies
+
+``` gradle
+dependencies {
+    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation "com.facebook.android:facebook-android-sdk:4.+"
+
+}
 ```
