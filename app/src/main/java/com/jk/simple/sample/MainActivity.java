@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
         tokenTextView = (TextView)findViewById(R.id.tokenView);
         Log.d("Main","Hello Git Android Project!");
 
-        SimpleSession.setAuthProvider(IdpType.GOOGLE,"532271504370-3fe2a4nb08asreaiflunlgs9ps903lvm.apps.googleusercontent.com");
+        SimpleSession.setAuthProvider(IdpType.GOOGLE,"532271504370-irf3thlpul1n5cpvqnr9868g3eo5790k.apps.googleusercontent.com");
         SimpleSession.setAuthProvider(IdpType.FACEBOOK,"523512451420119");
     }
 

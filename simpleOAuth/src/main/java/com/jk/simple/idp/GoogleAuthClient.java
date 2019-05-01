@@ -63,7 +63,6 @@ public class GoogleAuthClient extends AuthClient {
             GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                     .requestEmail()
                     .requestIdToken(SimpleAuthprovider.getInstance().getServerId(IdpType.GOOGLE))
-                    .requestServerAuthCode(SimpleAuthprovider.getInstance().getServerId(IdpType.GOOGLE))
                     .build();
 
             googleSignInClient = GoogleSignIn.getClient(mActivity, gso);
